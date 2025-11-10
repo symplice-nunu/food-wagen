@@ -28,6 +28,10 @@ const ghostButtonClasses =
   `${buttonBaseClasses} border border-slate-200 bg-white text-slate-700 shadow-sm hover:bg-slate-50`;
 const dangerButtonClasses =
   `${buttonBaseClasses} bg-rose-500 text-white shadow-md shadow-rose-500/30 hover:bg-rose-600`;
+const confirmDeleteButtonClasses =
+  `${buttonBaseClasses} rounded-2xl bg-gradient-to-r from-[#f9a53d] to-[#f88c1d] text-white w-full shadow-[0_18px_35px_rgba(248,140,29,0.35)] hover:from-[#f88c1d] hover:to-[#f7780a] focus-visible:ring-[#f9a53d]`;
+const cancelDeleteButtonClasses =
+  `${buttonBaseClasses} rounded-2xl w-full border border-[#f9a53d] bg-white text-black shadow-none hover:bg-[#fff2e3] focus-visible:ring-[#f9a53d]`;
 const inlineSpinnerClasses =
   "inline-flex h-5 w-5 animate-spin rounded-full border-2 border-transparent";
 const largeSpinnerClasses =
@@ -44,8 +48,8 @@ const initialFormValues: FoodFormValues = {
   restaurant_status: "Open",
 };
 
-const INITIAL_VISIBLE_COUNT = 6;
-const LOAD_MORE_STEP = 6;
+const INITIAL_VISIBLE_COUNT = 8;
+const LOAD_MORE_STEP = 8;
 
 const validateUrl = (value: string) => {
   try {
@@ -355,18 +359,18 @@ export function FoodDashboard() {
 
       <FoodModal
         open={modalMode === "delete"}
-        title="Delete Food"
+        title="Delete Meal"
         onClose={closeModal}
         testId="food-delete-modal"
       >
-        <div className="grid gap-5 text-base text-slate-700">
-          <p className="leading-relaxed">
-            Are you sure you want to delete <strong>{activeFood?.name ?? "this food item"}</strong>?
+        <div className="grid gap-6 text-center text-base text-slate-600">
+          <p className="text-sm font-medium text-slate-500">
+            Are you sure you want to delete this meal? Actions cannot be reversed.
           </p>
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
             <button
               type="button"
-              className={dangerButtonClasses}
+              className={confirmDeleteButtonClasses}
               onClick={handleDelete}
               disabled={isDeleting}
               data-test-id="food-confirm-delete-btn"
@@ -377,15 +381,15 @@ export function FoodDashboard() {
                     className={`${inlineSpinnerClasses} border-t-white`}
                     aria-hidden="true"
                   />
-                  Deleting Food...
+                  Deleting Meal...
                 </>
               ) : (
-                "Delete Food"
+                "Yes"
               )}
             </button>
             <button
               type="button"
-              className={ghostButtonClasses}
+              className={cancelDeleteButtonClasses}
               onClick={closeModal}
               disabled={isDeleting}
             >

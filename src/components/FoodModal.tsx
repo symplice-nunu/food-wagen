@@ -49,7 +49,7 @@ export function FoodModal({ open, title, children, onClose, testId = "food-modal
             {title}
           </h2>
         </div>
-        <div className="mt-8 space-y-6 mx-16">{children}</div>
+        <div className="mt-8 space-y-6 mx-0 md:mx-16 xl:mx-16 lg:mx-16">{children}</div>
       </div>
     </div>
   );

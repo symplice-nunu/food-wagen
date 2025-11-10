@@ -33,8 +33,12 @@ const normalizeFood = (food: FoodApiResponse): FoodItem => {
     ? food.restaurant
     : undefined;
 
+  const rawId = food.id ?? "";
+  const normalizedId =
+    typeof rawId === "string" ? rawId.trim() : String(rawId).trim();
+
   return {
-    id: food.id,
+    id: normalizedId,
     name: food.name ?? "Untitled food",
     image:
       image ||
@@ -94,7 +98,12 @@ export const updateFood = async (
   id: string,
   values: FoodFormValues,
 ): Promise<FoodItem> => {
-  const response = await fetch(`${API_ROOT}/${id}`, {
+  const sanitizedId = id.trim();
+  if (!sanitizedId) {
+    throw new Error("Invalid food identifier");
+  }
+
+  const response = await fetch(`${API_ROOT}/${sanitizedId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(serializeFood(values)),
@@ -109,7 +118,12 @@ export const updateFood = async (
 };
 
 export const deleteFood = async (id: string): Promise<void> => {
-  const response = await fetch(`${API_ROOT}/${id}`, {
+  const sanitizedId = id.trim();
+  if (!sanitizedId) {
+    throw new Error("Invalid food identifier");
+  }
+
+  const response = await fetch(`${API_ROOT}/${sanitizedId}`, {
     method: "DELETE",
   });
 

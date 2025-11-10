@@ -281,7 +281,7 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
         )}
       </div>
 
-      <div className="flex gap-3 pt-2">
+      <div className="flex gap-3 pt-2 flex-col md:flex-row">
         <button
           type="submit"
           className={`bg-[#ffaf1c] rounded-xl py-3 font-bold text-white w-full`}

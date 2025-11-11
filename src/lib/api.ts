@@ -1,6 +1,34 @@
 import { FoodApiResponse, FoodFormValues, FoodItem } from "@/types/food";
 
 const API_ROOT = "https://6852821e0594059b23cdd834.mockapi.io/Food";
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80";
+
+const isValidAbsoluteUrl = (value: string) => {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+
+const sanitizeImageSrc = (value?: string) => {
+  const trimmed = value?.trim();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  if (trimmed.startsWith("/")) {
+    return trimmed;
+  }
+
+  if (isValidAbsoluteUrl(trimmed)) {
+    return trimmed;
+  }
+
+  return undefined;
+};
 
 const toRestaurantStatus = (open?: boolean, status?: string) => {
   if (status === "Open" || status === "Closed") {
@@ -24,7 +52,6 @@ const isRestaurantObject = (
   typeof restaurant === "object" && restaurant !== null;
 
 const normalizeFood = (food: FoodApiResponse): FoodItem => {
-  const image = food.image ?? food.avatar ?? "";
   const ratingNumber =
     typeof food.rating === "string"
       ? Number.parseFloat(food.rating)
@@ -32,6 +59,10 @@ const normalizeFood = (food: FoodApiResponse): FoodItem => {
   const restaurant = isRestaurantObject(food.restaurant)
     ? food.restaurant
     : undefined;
+  const image =
+    sanitizeImageSrc(food.image) ??
+    sanitizeImageSrc(food.avatar) ??
+    FALLBACK_IMAGE;
 
   const rawId = food.id ?? "";
   const normalizedId =
@@ -40,15 +71,14 @@ const normalizeFood = (food: FoodApiResponse): FoodItem => {
   return {
     id: normalizedId,
     name: food.name ?? "Untitled food",
-    image:
-      image ||
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80",
+    image,
     rating: Number.isFinite(ratingNumber) && ratingNumber > 0 ? ratingNumber : 0,
     price: food.Price,
     restaurantName:
       food.restaurantName ??
       (typeof food.restaurant === "string" ? food.restaurant : restaurant?.name),
-    restaurantLogo: food.logo ?? restaurant?.logo,
+    restaurantLogo:
+      sanitizeImageSrc(food.logo) ?? sanitizeImageSrc(restaurant?.logo),
     restaurantStatus: toRestaurantStatus(food.open, food.status ?? restaurant?.status),
     createdAt: food.createdAt,
   };

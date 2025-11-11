@@ -15,12 +15,12 @@ import {
   FoodItem,
   RestaurantStatus,
 } from "@/types/food";
-import { FoodCard } from "../card/FoodCard";
+import { FoodCard } from "./FoodCard";
 import { FoodFooter } from "../layout/FoodFooter";
 import { FoodHeader } from "../layout/FoodHeader";
-import { FoodHero } from "../hero/FoodHero";
-import { FoodForm } from "../form/FoodForm";
-import { FoodModal } from "../modal/FoodModal";
+import { FoodHero } from "./FoodHero";
+import { FoodForm } from "./FoodForm";
+import { FoodModal } from "./FoodModal";
 
 const buttonBaseClasses =
   "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60";
@@ -260,7 +260,7 @@ export function FoodDashboard() {
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-orange-50 via-white to-white">
-        <FoodHeader onAddFood={openAddModal} />
+      <FoodHeader onAddFood={openAddModal} />
       <FoodHero
         fulfillment={fulfillment}
         onFulfillmentChange={setFulfillment}

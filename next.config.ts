@@ -19,6 +19,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "share.google" },
       { protocol: "https", hostname: "example.com" },
       { protocol: "https", hostname: "encrypted-tbn0.gstatic.com" },
+      { protocol: "https", hostname: "test.com" },
+      { protocol: "https", hostname: "images.immediate.co.uk" },
     ],
   },
 };

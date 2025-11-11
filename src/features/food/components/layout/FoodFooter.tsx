@@ -116,7 +116,7 @@ export function FoodFooter({ currentYear }: FoodFooterProps) {
             <div className="flex flex-1 items-center gap-3 rounded-xl bg-[#424242] px-4 py-2 shadow-inner transition focus-within:border-orange-400 focus-within:ring-2 focus-within:ring-orange-400/20">
               <svg
                 aria-hidden="true"
-                className="h-7 w-7 text-slate-500"
+                className="h-7 w-7 text-white"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.5}

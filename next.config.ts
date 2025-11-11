@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.fakercloud.com" },
       { protocol: "https", hostname: "share.google" },
       { protocol: "https", hostname: "example.com" },
+      { protocol: "https", hostname: "encrypted-tbn0.gstatic.com" },
     ],
   },
 };

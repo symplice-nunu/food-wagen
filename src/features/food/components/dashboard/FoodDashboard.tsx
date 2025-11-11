@@ -346,6 +346,7 @@ export function FoodDashboard() {
         testId="food-manage-modal"
       >
         <FoodForm
+          key={modalMode === "edit" ? "edit" : "add"}
           values={formValues}
           errors={formErrors}
           submitting={isSubmitting}
@@ -354,6 +355,7 @@ export function FoodDashboard() {
           onChange={handleChange}
           onSubmit={handleAddOrEdit}
           onCancel={closeModal}
+          isEditMode={modalMode === "edit"}
         />
       </FoodModal>
 

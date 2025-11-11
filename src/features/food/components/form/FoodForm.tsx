@@ -22,9 +22,9 @@ const buttonBaseClasses =
 const inlineSpinnerClasses =
   "inline-flex h-5 w-5 animate-spin rounded-full border-2 border-transparent border-t-white";
 const inputClasses =
-  "w-full rounded-xl border border-slate-200 bg-gray-100 px-4 py-3 text-sm font-medium text-slate-700 shadow-sm outline-none transition focus:border-orange-400 focus:ring-4 focus:ring-orange-100";
+  "w-full rounded-md bg-gray-100 px-4 py-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-gray-200 focus:ring-4 focus:ring-gray-200";
 const fieldClasses = "flex flex-col gap-2";
-const labelClasses = "text-sm font-semibold text-slate-700";
+const labelClasses = "text-sm text-gray-500";
 const errorClasses = "text-sm font-medium text-rose-500";
 const statusOptions: RestaurantStatus[] = ["Open", "Closed"];
 
@@ -37,9 +37,20 @@ interface FoodFormProps {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
+  isEditMode?: boolean;
 }
 
-export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel, onChange, onSubmit, onCancel }: FoodFormProps) {
+export function FoodForm({
+  values,
+  errors,
+  submitting,
+  submitLabel,
+  loadingLabel,
+  onChange,
+  onSubmit,
+  onCancel,
+  isEditMode = false,
+}: FoodFormProps) {
   const [statusMenuOpen, setStatusMenuOpen] = useState(false);
   const statusMenuRef = useRef<HTMLDivElement>(null);
 
@@ -91,16 +102,20 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
   return (
     <form className="grid gap-4" onSubmit={onSubmit} noValidate>
       <div className={fieldClasses}>
-        <label htmlFor="food_name" className={labelClasses}>
+        <label
+          htmlFor="food_name"
+          className={`${labelClasses} ${isEditMode ? "" : "hidden"}`}
+        >
           Food name
         </label>
         <input
           id="food_name"
           name="food_name"
-          placeholder="Enter food name"
+          placeholder="Food name"
           value={values.food_name}
           onChange={onChange}
           aria-describedby="food-name-error"
+          aria-label={!isEditMode ? "Food name" : undefined}
           className={inputClasses}
           required
           data-test-id="food-name-input"
@@ -113,7 +128,10 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
       </div>
 
       <div className={fieldClasses}>
-        <label htmlFor="food_rating" className={labelClasses}>
+        <label
+          htmlFor="food_rating"
+          className={`${labelClasses} ${isEditMode ? "" : "hidden"}`}
+        >
           Food rating
         </label>
         <input
@@ -122,10 +140,11 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
           type="number"
           min={1}
           max={5}
-          placeholder="Enter food rating (1-5)"
+          placeholder="Food rating"
           value={values.food_rating}
           onChange={onChange}
           aria-describedby="food-rating-error"
+          aria-label={!isEditMode ? "Food rating" : undefined}
           className={inputClasses}
           required
           data-test-id="food-rating-input"
@@ -138,16 +157,20 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
       </div>
 
       <div className={fieldClasses}>
-        <label htmlFor="food_image" className={labelClasses}>
+        <label
+          htmlFor="food_image"
+          className={`${labelClasses} ${isEditMode ? "" : "hidden"}`}
+        >
           Food image (link)
         </label>
         <input
           id="food_image"
           name="food_image"
-          placeholder="Paste food image link"
+          placeholder="Food image (link)"
           value={values.food_image}
           onChange={onChange}
           aria-describedby="food-image-error"
+          aria-label={!isEditMode ? "Food image (link)" : undefined}
           className={inputClasses}
           required
           data-test-id="food-image-input"
@@ -160,16 +183,20 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
       </div>
 
       <div className={fieldClasses}>
-        <label htmlFor="restaurant_name" className={labelClasses}>
+        <label
+          htmlFor="restaurant_name"
+          className={`${labelClasses} ${isEditMode ? "" : "hidden"}`}
+        >
           Restaurant name
         </label>
         <input
           id="restaurant_name"
           name="restaurant_name"
-          placeholder="Enter food restaurant name"
+          placeholder="Restaurant name"
           value={values.restaurant_name}
           onChange={onChange}
           aria-describedby="restaurant-name-error"
+          aria-label={!isEditMode ? "Restaurant name" : undefined}
           className={inputClasses}
           required
           data-test-id="food-restaurant-name-input"
@@ -182,16 +209,20 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
       </div>
 
       <div className={fieldClasses}>
-        <label htmlFor="restaurant_logo" className={labelClasses}>
+        <label
+          htmlFor="restaurant_logo"
+          className={`${labelClasses} ${isEditMode ? "" : "hidden"}`}
+        >
           Restaurant logo (link)
         </label>
         <input
           id="restaurant_logo"
           name="restaurant_logo"
-          placeholder="Paste food restaurant logo link"
+          placeholder="Restaurant logo (link)"
           value={values.restaurant_logo}
           onChange={onChange}
           aria-describedby="restaurant-logo-error"
+          aria-label={!isEditMode ? "Restaurant logo (link)" : undefined}
           className={inputClasses}
           required
           data-test-id="food-restaurant-logo-input"
@@ -204,7 +235,10 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
       </div>
 
       <div className={fieldClasses}>
-        <label htmlFor="restaurant_status" className={labelClasses}>
+        <label
+          htmlFor="restaurant_status"
+          className={`${labelClasses} ${isEditMode ? "" : "hidden"}`}
+        >
           Restaurant status (open/close)
         </label>
         <div className="relative" ref={statusMenuRef}>
@@ -219,7 +253,8 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
             aria-haspopup="listbox"
             aria-expanded={statusMenuOpen}
             onClick={toggleStatusMenu}
-            className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
+            className="flex w-full items-center justify-between rounded-md bg-gray-100 px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2"
+            aria-label={!isEditMode ? "Restaurant status (open/close)" : undefined}
             data-test-id="food-restaurant-status-input"
           >
             <span>{values.restaurant_status}</span>
@@ -242,7 +277,7 @@ export function FoodForm({ values, errors, submitting, submitLabel, loadingLabel
             <div
               role="listbox"
               aria-labelledby="restaurant_status"
-              className="absolute left-0 top-full z-30 mt-2 w-[130px] rounded bg-white p-1 shadow-xl"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-30 mt-2 w-[130px] rounded bg-white p-1 shadow-xl"
             >
               {statusOptions.map((option) => {
                 const isSelected = values.restaurant_status === option;

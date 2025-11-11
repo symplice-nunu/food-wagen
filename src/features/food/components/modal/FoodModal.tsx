@@ -34,14 +34,14 @@ export function FoodModal({ open, title, children, onClose, testId = "food-modal
 
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-slate-900/50 px-4 py-10 backdrop-blur"
+      className="fixed inset-0 z-50 grid place-items-center bg-gray-100/40 px-4 py-10"
       role="presentation"
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="w-full max-w-2xl rounded-3xl bg-white p-8 shadow-2xl shadow-slate-900/20"
+        className="w-full max-w-2xl max-h-[calc(100svh-5rem)] overflow-y-auto rounded-3xl bg-white p-8 shadow-2xl shadow-slate-900/20"
         data-test-id={testId}
       >
         <div className="flex items-start justify-center gap-4">

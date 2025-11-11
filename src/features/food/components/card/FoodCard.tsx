@@ -197,7 +197,7 @@ export function FoodCard({ food, onEdit, onDelete }: FoodCardProps) {
             </button>
             {menuOpen ? (
               <div
-                className="absolute right-0 z-20 mt-0 w-44 origin-top-right rounded-xl border border-slate-200 bg-white p-1 shadow-lg focus:outline-none"
+                className="absolute right-4 top-1/7 -translate-y-1/4 z-20 mt-0 w-44 origin-top-right rounded-md border border-slate-200 bg-white p-1 shadow-lg focus:outline-none"
                 role="menu"
               >
                 <button

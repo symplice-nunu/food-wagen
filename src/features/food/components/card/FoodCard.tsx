@@ -121,10 +121,10 @@ export function FoodCard({ food, onEdit, onDelete }: FoodCardProps) {
 
   return (
     <article
-      className="group relative flex flex-col overflow-hidden rounded-xl "
+      className="group relative flex flex-col overflow-hidden  "
       data-test-id="food-card"
     >
-      <div className="relative h-[200px] w-full overflow-hidden">
+      <div className="relative h-[200px] rounded-xl w-full overflow-hidden">
         <Image
           src={food.image}
           alt={food.name}

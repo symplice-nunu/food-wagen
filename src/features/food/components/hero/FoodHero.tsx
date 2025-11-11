@@ -4,6 +4,8 @@ import Image from "next/image";
 import type { FormEvent, ReactNode } from "react";
 
 import heroImage from "@/assets/Image.png";
+import motoIcon from "@/assets/icons/moto_Icon.png";
+import lockIcon from "@/assets/icons/lock_icon.png";
 
 interface FoodHeroProps {
   fulfillment: "Delivery" | "Pickup";
@@ -145,14 +147,30 @@ export function FoodHero({
               aria-label="Delivery options"
             >
               <ToggleLabel
-                icon={<DeliveryIcon />}
+                icon={
+                  <Image
+                    src={motoIcon}
+                    alt="Delivery icon"
+                    width={16}
+                    height={16}
+                    className="h-2 w-4"
+                  />
+                }
                 isActive={fulfillment === "Delivery"}
                 onSelect={() => onFulfillmentChange("Delivery")}
               >
                 Delivery
               </ToggleLabel>
               <ToggleLabel
-                icon={<PickupIcon />}
+                icon={
+                  <Image
+                    src={lockIcon}
+                    alt="Pickup icon"
+                    width={16}
+                    height={16}
+                    className="h-4 w-4"
+                  />
+                }
                 isActive={fulfillment === "Pickup"}
                 onSelect={() => onFulfillmentChange("Pickup")}
               >

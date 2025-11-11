@@ -71,6 +71,10 @@ export const fetchFoods = async (query?: string): Promise<FoodItem[]> => {
 
   const response = await fetch(url, { cache: "no-store" });
 
+  if (response.status === 404) {
+    return [];
+  }
+
   if (!response.ok) {
     throw new Error("Failed to load foods");
   }
